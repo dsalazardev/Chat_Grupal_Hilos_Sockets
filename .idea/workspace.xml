@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73ba1100-d39b-4943-a2d3-e3b515b6e105" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/python_chat.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/chat_cliente.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Python/chat_cliente.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/chat_server.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Python/chat_server.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README_Python.md" beforeDir="false" afterPath="$PROJECT_DIR$/README_Python.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,10 +40,11 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/home/salazar/Descargas/Unidad 4: Hilos y sockets/Chat_Grupal_Hilos_Sockets",
     "node.js.detected.package.eslint": "true",
@@ -76,6 +74,7 @@
       <workItem from="1761518351742" duration="2000" />
       <workItem from="1761518752595" duration="2990000" />
       <workItem from="1761521862947" duration="85000" />
+      <workItem from="1761521950769" duration="1634000" />
     </task>
     <servers />
   </component>

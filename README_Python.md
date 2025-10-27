@@ -6,27 +6,27 @@ Este proyecto, desarrollado para la materia de Programación Concurrente y Distr
 
 ## Conceptos Demostrados
 
-  * [cite\_start]**Sockets TCP (`AF_INET`, `SOCK_STREAM`)**: La comunicación se basa en sockets TCP [cite: 1310] para garantizar una conexión fiable, orientada a la conexión y ordenada entre el servidor y los múltiples clientes.
+  * **Sockets TCP (`AF_INET`, `SOCK_STREAM`)**: La comunicación se basa en sockets TCP para garantizar una conexión fiable, orientada a la conexión y ordenada entre el servidor y los múltiples clientes.
   * **Programación Orientada a Objetos (POO)**: El código está estructurado en clases (`ChatServer`, `ClientHandler`, `ChatClient`) para encapsular la lógica, gestionar el estado y facilitar la mantenibilidad del servidor y el cliente.
-  * **Hilos (`threading.Thread`)**: El servidor es multihilo. [cite\_start]Utiliza la herencia, tal como se explica en `clase`, creando una subclase `ClientHandler` que hereda de `threading.Thread`[cite: 179]. [cite\_start]Esto permite que cada cliente conectado sea manejado por un hilo independiente[cite: 185], permitiendo al servidor aceptar nuevas conexiones sin bloquearse.
-  * [cite\_start]**Sincronización (`threading.Lock`)**: Se utiliza un `threading.Lock` [cite: 1070] [cite\_start]para proteger el recurso compartido (`self.clients` del servidor), que es una sección crítica[cite: 1070]. [cite\_start]Esto es vital para prevenir condiciones de carrera al añadir/eliminar clientes o al iterar la lista para un `broadcast`, siguiendo las buenas prácticas de la sección "Bloqueos - Lock" de `clase`[cite: 1071, 1101].
+  * **Hilos (`threading.Thread`)**: El servidor es multihilo. Utiliza la herencia, creando una subclase `ClientHandler` que hereda de `threading.Thread`. Esto permite que cada cliente conectado sea manejado por un hilo independiente, permitiendo al servidor aceptar nuevas conexiones sin bloquearse.
+  * **Sincronización (`threading.Lock`)**: Se utiliza un `threading.Lock` para proteger el recurso compartido (`self.clients` del servidor), que es una sección crítica. Esto es vital para prevenir condiciones de carrera al añadir/eliminar clientes o al iterar la lista para un `broadcast`.
 
 ## Arquitectura y Funcionamiento
 
 ### 1\. Servidor (chat\_server.ipynb)
 
-  * **Clase `ChatServer`**: Actúa como el orquestador principal. [cite\_start]Su rol es inicializar el socket (`socket.socket`), enlazarlo a una dirección y puerto (`bind`) [cite: 1319][cite\_start], y ponerlo en modo de escucha (`listen`)[cite: 1319]. [cite\_start]Su método `run()` contiene el bucle principal que espera y acepta nuevas conexiones (`accept()`)[cite: 1322].
-  * [cite\_start]**Clase `ClientHandler`**: Se crea una instancia de esta clase (que es un Hilo) por cada cliente que se conecta [cite: 184-185]. [cite\_start]Su método `run()` [cite: 183] maneja el ciclo de vida completo de ese cliente:
+  * **Clase `ChatServer`**: Actúa como el orquestador principal. Su rol es inicializar el socket (`socket.socket`), enlazarlo a una dirección y puerto (`bind`), y ponerlo en modo de escucha (`listen`). Su método `run()` contiene el bucle principal que espera y acepta nuevas conexiones (`accept()`).
+  * **Clase `ClientHandler`**: Se crea una instancia de esta clase (que es un Hilo) por cada cliente que se conecta. Su método `run()` maneja el ciclo de vida completo de ese cliente:
     1.  Espera recibir un primer mensaje que usa como `nombre_usuario`.
     2.  Anuncia la conexión del usuario al resto del chat.
     3.  Entra en un bucle para recibir y reenviar (`broadcast`) todos los mensajes de chat de ese cliente.
     4.  Maneja la desconexión (limpia o abrupta) usando un bloque `finally` para cerrar la conexión y eliminar al cliente de la lista.
-  * **Énfasis en Sincronización**: Los métodos `add_client`, `remove_client` y `broadcast` usan `with self.clients_lock:`. [cite\_start]Esto garantiza la **exclusión mutua** [cite: 1070-1071]: solo un hilo puede acceder a la lista `self.clients` a la vez, asegurando su integridad y evitando errores al modificarla e iterarla simultáneamente.
+  * **Énfasis en Sincronización**: Los métodos `add_client`, `remove_client` y `broadcast` usan `with self.clients_lock:`. Esto garantiza la **exclusión mutua**: solo un hilo puede acceder a la lista `self.clients` a la vez, asegurando su integridad y evitando errores al modificarla e iterarla simultáneamente.
 
 ### 2\. Cliente (chat\_cliente.ipynb)
 
-  * **Clase `ChatClient`**: Su rol es encapsular toda la lógica del cliente. [cite\_start]En su método `start()`, se conecta al servidor (`connect()`)[cite: 1344], pide el `nombre_usuario` al usuario y lo envía inmediatamente al servidor para identificarse.
-  * **Énfasis en Concurrencia**: El cliente logra una comunicación *full-duplex* (simulada) de manera eficiente. [cite\_start]Lanza un hilo secundario (`receiver_thread`) que ejecuta el método `_listen_for_messages`[cite: 12, 16]. [cite\_start]Este hilo se dedica exclusivamente a esperar (`recv()`) [cite: 1326] y mostrar mensajes del servidor. Mientras tanto, el hilo principal ejecuta `_send_messages_loop`, dedicándose a esperar la entrada del usuario (`input()`). Esto evita que el `input()` (bloqueante) impida recibir mensajes, y que `recv()` (bloqueante) impida al usuario escribir.
+  * **Clase `ChatClient`**: Su rol es encapsular toda la lógica del cliente. En su método `start()`, se conecta al servidor (`connect()`), pide el `nombre_usuario` al usuario y lo envía inmediatamente al servidor para identificarse.
+  * **Énfasis en Concurrencia**: El cliente logra una comunicación *full-duplex* (simulada) de manera eficiente. Lanza un hilo secundario (`receiver_thread`) que ejecuta el método `_listen_for_messages`. Este hilo se dedica exclusivamente a esperar (`recv()`) y mostrar mensajes del servidor. Mientras tanto, el hilo principal ejecuta `_send_messages_loop`, dedicándose a esperar la entrada del usuario (`input()`). Esto evita que el `input()` (bloqueante) impida recibir mensajes, y que `recv()` (bloqueante) impida al usuario escribir.
 
 ## Instrucciones de Uso
 
@@ -52,7 +52,8 @@ Este proyecto, desarrollado para la materia de Programación Concurrente y Distr
 
 ## Autores
 
-Daner Alejandro Salazar Colorado
-Jaime Andres Cardona Diaz
+*Daner Alejandro Salazar Colorado*
+
+*Jaime Andres Cardona Diaz*
 
 Ingeniería de Sistemas y Computación
